@@ -1,0 +1,12 @@
+{
+  "name": "optic-extension",
+  "version": "1.5.0",
+  "private": true,
+  "description": "Dev-only tooling for the Optic Chrome extension. The extension itself is plain HTML/CSS/JS and does not depend on this file.",
+  "scripts": {
+    "icons": "node scripts/generate-icons.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}
