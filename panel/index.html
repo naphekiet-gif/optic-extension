@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optic</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <!-- Header: app title + visualization mode toggle -->
+  <header class="app-header">
+    <h1 class="app-title">Optic</h1>
+    <div class="mode-toggle" role="tablist" aria-label="Visualization mode">
+      <button
+        id="mode-schematic"
+        class="toggle-button is-active"
+        type="button"
+        role="tab"
+        aria-selected="true"
+      >Schematic</button>
+      <button
+        id="mode-cinematic"
+        class="toggle-button"
+        type="button"
+        role="tab"
+        aria-selected="false"
+      >Cinematic</button>
+    </div>
+  </header>
+
+  <!-- API key entry -->
+  <section class="api-key-section card">
+    <div class="api-key-row">
+      <input
+        id="api-key-input"
+        class="text-input"
+        type="password"
+        placeholder="Your Anthropic API key"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Anthropic API key"
+      >
+      <button id="api-key-save" class="button button-secondary" type="button">Save</button>
+    </div>
+  </section>
+
+  <!-- Collapsible prompt helper -->
+  <section class="prompt-helper card">
+    <button
+      id="prompt-helper-toggle"
+      class="prompt-helper-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="prompt-helper-options"
+    >Need help describing your system? Get a starter prompt</button>
+
+    <div
+      id="prompt-helper-options"
+      class="prompt-helper-options hidden"
+      role="region"
+      aria-labelledby="prompt-helper-toggle"
+    >
+      <button
+        id="prompt-option-coding"
+        class="prompt-option"
+        type="button"
+        data-prompt-type="coding"
+      >
+        <span class="prompt-option-title">For coding assistants</span>
+        <span class="prompt-option-description">Claude Code, Cursor, Lovable, Bolt, Replit, v0 — tools that read your codebase</span>
+      </button>
+
+      <button
+        id="prompt-option-general"
+        class="prompt-option"
+        type="button"
+        data-prompt-type="general"
+      >
+        <span class="prompt-option-title">For general AI tools</span>
+        <span class="prompt-option-description">ChatGPT, Claude.ai, Gemini — when you describe your app conversationally</span>
+      </button>
+
+      <button
+        id="prompt-option-refresh"
+        class="prompt-option"
+        type="button"
+        data-prompt-type="refresh"
+      >
+        <span class="prompt-option-title">Refresh an existing visualization</span>
+        <span class="prompt-option-description">A short prompt to get an updated description after changes</span>
+      </button>
+
+      <div
+        id="copy-confirmation"
+        class="copy-confirmation hidden"
+        role="status"
+        aria-live="polite"
+      >Copied — paste it into your AI tool</div>
+    </div>
+  </section>
+
+  <!-- Description input + primary action -->
+  <section class="input-section">
+    <textarea
+      id="description-input"
+      class="description-input"
+      placeholder="Paste your system description here, or use a starter prompt above"
+      rows="6"
+      spellcheck="false"
+      aria-label="System description"
+    ></textarea>
+    <button id="visualize-button" class="button button-primary" type="button">Visualize</button>
+  </section>
+
+  <!-- Loading indicator (hidden until panel.js shows it) -->
+  <div
+    id="loading-indicator"
+    class="loading-indicator hidden"
+    role="status"
+    aria-live="polite"
+  >
+    <span class="loading-text">Generating visualization…</span>
+  </div>
+
+  <!-- Visualization area: schematic visible by default, cinematic hidden -->
+  <section class="viz-area" aria-label="Visualization">
+    <div id="schematic-view" class="viz-container schematic-view"></div>
+    <div id="cinematic-view" class="viz-container cinematic-view hidden"></div>
+  </section>
+
+  <!-- Footer actions -->
+  <footer class="app-footer">
+    <button id="clear-button" class="button button-secondary" type="button">Clear</button>
+    <button id="export-button" class="button button-secondary" type="button">Export</button>
+  </footer>
+
+  <!-- D3.js v7.9.0, bundled locally at lib/d3.min.js to comply with Manifest V3's
+       Content Security Policy (script-src 'self'), which forbids remote code.
+       The file is the canonical D3 distribution (downloaded from cdnjs) and
+       ships inside the extension package — no runtime network fetch. -->
+  <script src="../lib/d3.min.js"></script>
+
+  <!-- Panel controller (to be written in a later step) -->
+  <script type="module" src="panel.js"></script>
+</body>
+</html>
