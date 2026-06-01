@@ -18,6 +18,12 @@
 //     interpreted as HTML.
 
 // ---------------------------------------------------------------------------
+// Visualizer imports
+// ---------------------------------------------------------------------------
+
+import { renderSchematic } from './components/visualizer-schematic.js';
+
+// ---------------------------------------------------------------------------
 // Storage keys (single source of truth)
 // ---------------------------------------------------------------------------
 
@@ -264,7 +270,13 @@ function renderCurrentGraph() {
   if (!currentGraph) return;
   const active   = currentMode === 'cinematic' ? el.cinematicView : el.schematicView;
   const inactive = currentMode === 'cinematic' ? el.schematicView : el.cinematicView;
-  renderGraphAsText(currentGraph, active);
+  if (currentMode === 'schematic') {
+    renderSchematic(currentGraph, active);
+  } else {
+    // Cinematic mode still uses the temporary text renderer until the
+    // cinematic visualizer is built in the next step.
+    renderGraphAsText(currentGraph, active);
+  }
   inactive.replaceChildren(); // avoid stale rendering in the hidden container
 }
 
